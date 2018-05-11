@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import Subscription from './Subscription';
 import { MonthlyExpenses } from './Expenses';
-const items = [];
-// let expenses = 0;
 
 
 class Form extends Component {
@@ -10,10 +8,10 @@ class Form extends Component {
     super(props);
     this.state = {
       purpose: '',
-      priceTag: 0,
+      priceTag: '',
       payFreq: '',
-      toDisplay: false,
-      expenses: 0
+      expenses: 0,
+      subscriptions: [],
     };
   }
 
@@ -24,26 +22,41 @@ class Form extends Component {
   }
 
   handleSubmit = (e) => {
-    e.preventDefault();
     const formInput = this.state;
-      items.push(formInput);
-    this.setState({
-      toDisplay: true,
-      expenses: formInput.expenses+AddExpenses(formInput.priceTag,formInput.payFreq)
+    const subDetails = [formInput.purpose, formInput.priceTag,formInput.payFreq]
+      this.state.subscriptions.push(subDetails);
+      console.log(this.state.subscriptions);
+    this.setState((prevState)=>{
+      return {
+        expenses: prevState.expenses + parseFloat(MonthlyExpenses(formInput.priceTag,formInput.payFreq)),
+        purpose: '',
+        priceTag: '',
+        payFreq: '',
+      }
+    });
+    e.preventDefault();
+  }
+
+  handleRemoval = (purpose) => {
+    console.log(purpose);
+    this.setState((prevState) => {
+      return {
+      subscriptions: prevState.subscriptions.filter(subscription => subscription[0] !== purpose),
+    }
     });
   }
 
   render() {
     const frequency = ['Yearly','Monthly','Twice a Month','Weekly','Daily'];
-    const {purpose, priceTag, payFreq,toDisplay,expenses} = this.state;
+    const {purpose, priceTag, payFreq,expenses,subscriptions} = this.state;
     let totalExpenses = expenses.toFixed(2);
     return (
       <div>
           <div>
-            {toDisplay && <p>Your Expenses are :{totalExpenses}</p>}
+            {expenses!==0 && <p>Your Expenses are :{totalExpenses}</p>}
           </div>
         <h2>Add an Expense</h2>
-        <form  onSubmit={this.handleSubmit}>
+        <form  onSubmit={this.handleSubmit} id='mainForm'>
           <label
             htmlFor='name'>
             Payment Name/Website
@@ -69,6 +82,7 @@ class Form extends Component {
             min='0'
             max='99999'
             name='priceTag'
+            value={priceTag}
             onChange={this.handleChange}
             required />
 
@@ -79,6 +93,7 @@ class Form extends Component {
           <select
             id='payment-freq'
             name='payFreq'
+            value={payFreq}
             onChange={this.handleChange}
             required>
             <option key='default' value={null} hidden>Select Frequency</option>
@@ -92,29 +107,19 @@ class Form extends Component {
         </form>
         <h2>Subscriptions</h2>
         <div>
-          <ul className='sub-item'>
-            {toDisplay && items.map((item, index) => {
+          <ul>
+            {subscriptions.map((subscription, index) => {
               return (
-                  <li key={index}>
-                    <Subscription purpose={item.purpose} priceTag={item.priceTag} payFreq={item.payFreq}
-                    expenses={item.expenses}/>
-                  </li>
-                )
-              })}
+                <li key={index}>
+                  <Subscription details={subscription} handleRemoval={this.handleRemoval}/>
+                </li>
+              )
+            })}
           </ul>
         </div>
       </div>
     )
   }
 }
-function AddExpenses (price,period) {
-  console.log('added');
-return parseFloat(MonthlyExpenses(price,period));
-}
-// export function ReduceExpenses (price,period) {
-//     expenses -= parseFloat(MonthlyExpenses(price,period));
-//     console.log(expenses+'--removed');
-//     return expenses;
-//   }
 
 export default Form;

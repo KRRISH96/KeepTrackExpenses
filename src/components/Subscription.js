@@ -1,43 +1,30 @@
 import React, { Component } from 'react';
-// import { ReduceExpenses } from './Form';
 
 class Subscription extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      purpose: this.props.purpose,
-      priceTag: this.props.priceTag,
-      payFreq: this.props.payFreq,
+      details: this.props.details,
+      handleRemoval: this.props.handleRemoval
     }
   }
 
-
-handleDisplay = () => {
-  this.setState({
-    purpose: '',
-    priceTag: 0,
-    payFreq: '',
-  });
-  // ReduceExpenses(this.state.priceTag,this.state.payFreq);
-}
     render() {
-      const {purpose,priceTag,payFreq} = this.state;
-      return (
-        <div>
-        { (purpose && priceTag && payFreq) &&
-          <div className='subscription'>
-          <div className='sub-header'>
-          <p>{purpose}</p>
-          <button onClick={this.handleDisplay}>Remove</button>
+      const {details} = this.state;
+        return(
+          <div>
+          {details.map((detail,index) => {
+            return (
+              <ul  key={index} className='sub-item'>
+                  <li className='sub-header'>
+                  {details[index]}
+                  </li>
+                  </ul>
+                )
+            })}
+            <button onClick={()=>this.state.handleRemoval(details[0])}>Remove</button>
           </div>
-          <div className='sub-body'>
-          <p>Price:{priceTag}</p>
-          <p>Frequency:{payFreq}</p>
-          </div>
-          </div>
-        }
-        </div>
-      )
+        )
     }
   }
 
