@@ -1,0 +1,36 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+ul {
+  list-style: none;
+}
+.subscription,.sub-header {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.subscription {
+  border: 1px solid red;
+  flex-direction: column;
+  margin: 30px;
+  width: 90%;
+  justify-content: space-around;
+}
+.sub-header {
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid black;
+}
+.sub-item {
+  display: flex;
+  flex-wrap: wrap;
+  border: 1px solid green;
+  margin-bottom: 20px;
+  padding: 0;
+  width: 75%;
+  justify-content: center;
+  margin: 0 auto;
+  align-items: center;
+}
