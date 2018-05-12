@@ -53,7 +53,7 @@ class Form extends Component {
     return (
       <div>
           <div>
-            {expenses > 0.00 && <p>Your Expenses are :{totalExpenses}</p>}
+            {expenses > 0.00 && <p>Monthly Spending<br></br>{totalExpenses}$! That is a lot of money!</p>}
           </div>
         <h2>Add an Expense</h2>
         <form  onSubmit={this.handleSubmit} id='mainForm'>
@@ -107,6 +107,7 @@ class Form extends Component {
         </form>
         <h2>Subscriptions</h2>
         <div>
+          {expenses <= 0.00 && <p>No expenses! Good! You did good in life!</p>}
           <ul>
             {subscriptions.map((subscription, index) => {
               return (

@@ -5,16 +5,16 @@ function Subscription (props) {
           <div>
               <ul className='sub-item'>
                   <li className='sub-header'>
-                  {props.details.purpose}
+                    {props.details.purpose}
                   </li>
                   <li>
-                  {props.details.priceTag}
+                    {props.details.priceTag}$
                   </li>
                   <li>
-                  {props.details.payFreq}
+                    {props.details.payFreq}
                   </li>
-                  </ul>
-            <button onClick={()=>props.handleRemoval(props.details.id,props.details.priceTag,props.details.payFreq)}>Remove</button>
+              </ul>
+              <button onClick={()=>props.handleRemoval(props.details.id,props.details.priceTag,props.details.payFreq)}>Remove</button>
           </div>
         )
   }
