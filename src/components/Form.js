@@ -79,7 +79,7 @@ class Form extends Component {
             type='number'
             placeholder='Ex: 10'
             step='0.01'
-            min='0'
+            min='0.01'
             max='99999'
             name='priceTag'
             value={priceTag}
