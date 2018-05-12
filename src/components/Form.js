@@ -51,64 +51,70 @@ class Form extends Component {
     const {purpose, priceTag, payFreq,expenses,subscriptions} = this.state;
     let totalExpenses = expenses.toFixed(2);
     return (
-      <div>
-          <div>
-            {expenses > 0.00 && <p>Monthly Spending<br></br>{totalExpenses}$! That is a lot of money!</p>}
-          </div>
+      <div className='mainContent'>
+            {expenses > 0.00 &&
+              <div  class='expenseTitle'>
+                <h3>Monthly Spending</h3>
+                <p><span>{totalExpenses}$!</span> That is a lot of money!</p>
+              </div>}
         <h2>Add an Expense</h2>
-        <form  onSubmit={this.handleSubmit} id='mainForm'>
-          <label
-            htmlFor='name'>
-            Payment Name/Website
-          </label>
-          <input
-            id='name'
-            type='text'
-            placeholder='Ex: Amazon Prime'
-            name='purpose'
-            value={purpose}
-            onChange={this.handleChange}
-            required/>
-
-          <label
-            htmlFor='price'>
-            Price
-          </label>
-          <input
-            id='price'
-            type='number'
-            placeholder='Ex: 10'
-            step='0.01'
-            min='0.01'
-            max='99999'
-            name='priceTag'
-            value={priceTag}
-            onChange={this.handleChange}
-            required />
-
-          <label
-            htmlFor='payment-freq'>
-            Frequency of Payment
-          </label>
-          <select
-            id='payment-freq'
-            name='payFreq'
-            value={payFreq}
-            onChange={this.handleChange}
-            required>
-            <option key='default' value={null} hidden>Select Frequency</option>
-              {frequency.map((item) => {
-                return (
-                  <option key={item} value={item}>{item}</option>
-                )
-              })}
-          </select>
-          <button type='submit' disabled={!(purpose && priceTag && payFreq)}>Add</button>
+        <form id='mainForm'>
+          <div className='formInput'>
+            <label
+              htmlFor='name'>
+              Payment Name/Website
+            </label>
+            <input
+              id='name'
+              type='text'
+              placeholder='Ex: Amazon Prime'
+              name='purpose'
+              value={purpose}
+              onChange={this.handleChange}
+              required/>
+            </div>
+            <div className='formInput'>
+              <label
+                htmlFor='price'>
+                Price
+              </label>
+              <input
+                id='price'
+                type='number'
+                placeholder='Ex: 10'
+                step='0.01'
+                min='0.01'
+                max='99999'
+                name='priceTag'
+                value={priceTag}
+                onChange={this.handleChange}
+                required />
+              </div>
+              <div className='formInput'>
+              <label
+                htmlFor='payment-freq'>
+                Frequency of Payment
+              </label>
+              <select
+                id='payment-freq'
+                name='payFreq'
+                value={payFreq}
+                onChange={this.handleChange}
+                required>
+                <option key='default' value={null} hidden>Select Frequency</option>
+                  {frequency.map((item) => {
+                    return (
+                      <option key={item} value={item}>{item}</option>
+                    )
+                  })}
+                </select>
+                </div>
         </form>
+        <button type='submit' onClick={this.handleSubmit} disabled={!(purpose && priceTag && payFreq)}>Add</button>
         <h2>Subscriptions</h2>
         <div>
-          {expenses <= 0.00 && <p>No expenses! Good! You did good in life!</p>}
-          <ul>
+          {expenses <= 0.00 && <p id='defaultSub'>No expenses! Good! You did good in life!</p>}
+          <ul className='subscription'>
             {subscriptions.map((subscription, index) => {
               return (
                 <li key={index}>
