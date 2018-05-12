@@ -1,7 +1,4 @@
 
-
-
-
 export function MonthlyExpenses(price,period) {
     switch (period) {
       case 'Yearly': return (price/12);

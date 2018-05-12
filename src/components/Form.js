@@ -22,13 +22,13 @@ class Form extends Component {
   }
 
   handleSubmit = (e) => {
-    const formInput = this.state;
-    const subDetails = [formInput.purpose, formInput.priceTag,formInput.payFreq]
+    const {purpose,priceTag,payFreq} = this.state;
+    const id = Math.floor(Math.random() * 100);
+    const subDetails = {id,purpose,priceTag,payFreq};
       this.state.subscriptions.push(subDetails);
-      console.log(this.state.subscriptions);
     this.setState((prevState)=>{
       return {
-        expenses: prevState.expenses + parseFloat(MonthlyExpenses(formInput.priceTag,formInput.payFreq)),
+        expenses: prevState.expenses + parseFloat(MonthlyExpenses(priceTag,payFreq)),
         purpose: '',
         priceTag: '',
         payFreq: '',
@@ -37,11 +37,11 @@ class Form extends Component {
     e.preventDefault();
   }
 
-  handleRemoval = (purpose) => {
-    console.log(purpose);
+  handleRemoval = (id,price,period) => {
     this.setState((prevState) => {
       return {
-      subscriptions: prevState.subscriptions.filter(subscription => subscription[0] !== purpose),
+      subscriptions: prevState.subscriptions.filter(subscription => subscription.id !== id),
+      expenses: prevState.expenses - parseFloat(MonthlyExpenses(price,period)),
     }
     });
   }
@@ -53,7 +53,7 @@ class Form extends Component {
     return (
       <div>
           <div>
-            {expenses!==0 && <p>Your Expenses are :{totalExpenses}</p>}
+            {expenses > 0.00 && <p>Your Expenses are :{totalExpenses}</p>}
           </div>
         <h2>Add an Expense</h2>
         <form  onSubmit={this.handleSubmit} id='mainForm'>
