@@ -22,17 +22,15 @@ class Form extends Component {
   }
 
   handleSubmit = (e) => {
-    const {purpose,priceTag,payFreq} = this.state;
+    const {purpose,priceTag,payFreq,expenses,subscriptions} = this.state;
     const id = Math.floor(Math.random() * 100);
     const subDetails = {id,purpose,priceTag,payFreq};
-      this.state.subscriptions.push(subDetails);
-    this.setState((prevState)=>{
-      return {
-        expenses: prevState.expenses + parseFloat(MonthlyExpenses(priceTag,payFreq)),
+    this.setState({
+        subscriptions: [...subscriptions,(subDetails)],
+        expenses: expenses + parseFloat(MonthlyExpenses(priceTag,payFreq)),
         purpose: '',
         priceTag: '',
         payFreq: '',
-      }
     });
     e.preventDefault();
   }
@@ -53,7 +51,7 @@ class Form extends Component {
     return (
       <div className='mainContent'>
             {expenses > 0.00 &&
-              <div  class='expenseTitle'>
+              <div  className='expenseTitle'>
                 <h3>Monthly Spending</h3>
                 <p><span>{totalExpenses}$!</span> That is a lot of money!</p>
               </div>}
