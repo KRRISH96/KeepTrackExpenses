@@ -26,7 +26,7 @@ class Form extends Component {
     const id = Math.floor(Math.random() * 100);
     const subDetails = {id,purpose,priceTag,payFreq};
     this.setState({
-        subscriptions: [...subscriptions,(subDetails)],
+        subscriptions: [...subscriptions, subDetails],
         expenses: expenses + parseFloat(MonthlyExpenses(priceTag,payFreq)),
         purpose: '',
         priceTag: '',
