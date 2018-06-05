@@ -2,7 +2,7 @@
 This Project is done for practice, The original is here-->  https://stop-microspending.now.sh/
 
 # Live Demo
-https://krrish96.github.io/KeepTrackExpenses/
+https://angry-einstein-4551a1.netlify.com/
 
 # Usage
 You can keep track of your all expenses every month.
