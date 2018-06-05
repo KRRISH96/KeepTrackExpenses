@@ -2,6 +2,7 @@ body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
+  background: linear-gradient(to left, rgba(192,0,0,0.2), rgba(47,225,214,0.4));
 }
 root {
   display: flex;
@@ -107,7 +108,7 @@ h2 {
 }
 .subDetails {
   border: 1px dashed #ffd6a0;
-  background: rgba(248,213,240,0.3);
+  background: rgba(0,0,0,0.1);
   border-radius: 10px;
   display: flex;
   flex-direction: column;
